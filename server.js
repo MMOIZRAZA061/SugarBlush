@@ -16,7 +16,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        maxAge: 24 * 60 * 60 * 1000,
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
         sameSite: 'lax'
@@ -43,10 +43,19 @@ app.use('/api/settings', require('./routes/settings'));
 app.use('/api/coupons', require('./routes/coupons'));
 app.use('/api/upload', require('./routes/upload'));
 
+// Serve React build (production)
+const reactBuildPath = path.join(__dirname, 'client', 'dist');
+app.use(express.static(reactBuildPath));
+
+// Fallback: serve React app for all non-API routes (SPA routing)
+app.get('*', (req, res) => {
+    res.sendFile(path.join(reactBuildPath, 'index.html'));
+});
+
 // Start server after DB connection
 connectDB().then(() => {
     app.listen(PORT, () => {
-        console.log(`Sugar Blush Bakery API running at http://localhost:${PORT}`);
+        console.log(`Sugar Blush Bakery running at http://localhost:${PORT}`);
         console.log(`Admin login: admin@bakery.com / admin123`);
     });
 }).catch(err => {
