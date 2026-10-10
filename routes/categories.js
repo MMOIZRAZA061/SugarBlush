@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 
 // POST /api/categories - Create category (admin)
 router.post('/', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
 
 // PUT /api/categories/:id - Update category (admin)
 router.put('/:id', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -48,7 +48,7 @@ router.put('/:id', async (req, res) => {
 
 // DELETE /api/categories/:id - Delete category (admin)
 router.delete('/:id', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {

@@ -4,7 +4,7 @@ const { toPlainArray } = require('../db/helpers');
 const router = express.Router();
 
 function requireAdmin(req, res) {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         res.status(403).json({ error: 'Admin access required' });
         return false;
     }
@@ -203,9 +203,9 @@ router.post('/assign', async (req, res) => {
 
 // GET /api/coupons/my - Get my assigned coupons (customer)
 router.get('/my', async (req, res) => {
-    if (!req.session.user) return res.status(401).json({ error: 'Not authenticated' });
+    if (!req.user) return res.status(401).json({ error: 'Not authenticated' });
     try {
-        const assignments = await CouponAssignment.find({ user_id: req.session.user.id }).sort({ assigned_at: -1 });
+        const assignments = await CouponAssignment.find({ user_id: req.user.id }).sort({ assigned_at: -1 });
         const couponIds = assignments.map(a => a.coupon_id);
         const coupons = await Coupon.find({ id: { $in: couponIds } });
         const cMap = Object.fromEntries(coupons.map(c => [c.id, c]));
@@ -240,9 +240,9 @@ router.get('/my', async (req, res) => {
 
 // POST /api/coupons/claim/:assignment_id - Claim a coupon (customer)
 router.post('/claim/:assignment_id', async (req, res) => {
-    if (!req.session.user) return res.status(401).json({ error: 'Not authenticated' });
+    if (!req.user) return res.status(401).json({ error: 'Not authenticated' });
     try {
-        const assignment = await CouponAssignment.findOne({ id: parseInt(req.params.assignment_id), user_id: req.session.user.id });
+        const assignment = await CouponAssignment.findOne({ id: parseInt(req.params.assignment_id), user_id: req.user.id });
         if (!assignment) return res.status(404).json({ error: 'Coupon assignment not found' });
         if (assignment.status !== 'assigned') return res.status(400).json({ error: 'Coupon already claimed or used' });
 
@@ -267,7 +267,7 @@ router.post('/claim/:assignment_id', async (req, res) => {
 
 // POST /api/coupons/validate - Validate a coupon code (customer)
 router.post('/validate', async (req, res) => {
-    if (!req.session.user) return res.status(401).json({ error: 'Not authenticated' });
+    if (!req.user) return res.status(401).json({ error: 'Not authenticated' });
     try {
         const { code, cart_total } = req.body;
         if (!code) return res.status(400).json({ error: 'Coupon code required' });
@@ -283,7 +283,7 @@ router.post('/validate', async (req, res) => {
         }
 
         // Check if user has this coupon assigned and claimed
-        const assignment = await CouponAssignment.findOne({ coupon_id: coupon.id, user_id: req.session.user.id, status: { $in: ['claimed', 'used'] } });
+        const assignment = await CouponAssignment.findOne({ coupon_id: coupon.id, user_id: req.user.id, status: { $in: ['claimed', 'used'] } });
         if (!assignment) {
             return res.status(400).json({ error: 'This coupon is not assigned to you. Check your Coupons page.' });
         }

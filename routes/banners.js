@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 
 // POST /api/banners - Create banner (admin)
 router.post('/', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
 
 // PUT /api/banners/:id - Update banner (admin)
 router.put('/:id', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -63,7 +63,7 @@ router.put('/:id', async (req, res) => {
 
 // DELETE /api/banners/:id - Delete banner (admin)
 router.delete('/:id', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {

@@ -64,7 +64,7 @@ router.get('/:id', async (req, res) => {
 
 // POST /api/products - Create product (admin)
 router.post('/', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -93,7 +93,7 @@ router.post('/', async (req, res) => {
 
 // PUT /api/products/:id - Update product (admin)
 router.put('/:id', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -119,7 +119,7 @@ router.put('/:id', async (req, res) => {
 
 // DELETE /api/products/:id - Delete product (admin)
 router.delete('/:id', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -133,7 +133,7 @@ router.delete('/:id', async (req, res) => {
 
 // POST /api/products/:id/toggle - Toggle active status (admin)
 router.post('/:id/toggle', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {

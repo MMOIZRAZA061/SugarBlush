@@ -1,10 +1,9 @@
 const express = require('express');
-const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const fs = require('fs');
-const MongoStore = require('connect-mongo');
-const { connectDB, mongoose } = require('./db/connect');
+const { connectDB } = require('./db/connect');
+const { attachUser } = require('./middleware/auth');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,24 +12,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
-// Session with MongoDB store (required for Vercel serverless)
-app.use(session({
-    secret: process.env.SESSION_SECRET || 'sugar-blush-secret-key-2024',
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
-        mongoUrl: process.env.MONGODB_URI,
-        collectionName: 'sessions',
-        ttl: 24 * 60 * 60 // 24 hours
-    }),
-    cookie: {
-        maxAge: 24 * 60 * 60 * 1000,
-        secure: process.env.NODE_ENV === 'production',
-        httpOnly: true,
-        sameSite: 'lax'
-    }
-}));
+app.use(attachUser); // Attach user from JWT token to every request
 
 // Static files (uploads, images, etc.)
 app.use('/static', express.static(path.join(__dirname, 'public', 'static')));

@@ -5,7 +5,7 @@ const router = express.Router();
 
 // GET /api/custom-orders - List custom orders (admin)
 router.get('/', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
         if (!name || !email || !description) {
             return res.status(400).json({ error: 'Name, email, and description are required' });
         }
-        const userId = req.session.user ? req.session.user.id : null;
+        const userId = req.user ? req.user.id : null;
         const maxDoc = await CustomOrder.findOne().sort({ id: -1 }).select('id').lean();
         const newId = (maxDoc && maxDoc.id ? maxDoc.id : 0) + 1;
         const order = await CustomOrder.create({
@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
 
 // PUT /api/custom-orders/:id/status - Update status (admin)
 router.put('/:id/status', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -63,7 +63,7 @@ router.put('/:id/status', async (req, res) => {
 
 // DELETE /api/custom-orders/:id - Delete (admin)
 router.delete('/:id', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {

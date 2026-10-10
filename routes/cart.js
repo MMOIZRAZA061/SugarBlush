@@ -5,9 +5,9 @@ const router = express.Router();
 
 // GET /api/cart - Get cart items
 router.get('/', async (req, res) => {
-    if (!req.session.user) return res.status(401).json({ error: 'Not authenticated' });
+    if (!req.user) return res.status(401).json({ error: 'Not authenticated' });
     try {
-        const items = await CartItem.find({ user_id: req.session.user.id });
+        const items = await CartItem.find({ user_id: req.user.id });
         const productIds = items.map(i => i.product_id);
         const products = await Product.find({ id: { $in: productIds } });
         const pMap = Object.fromEntries(products.map(p => [p.id, p]));
@@ -35,21 +35,21 @@ router.get('/', async (req, res) => {
 
 // POST /api/cart/add - Add item to cart
 router.post('/add', async (req, res) => {
-    if (!req.session.user) return res.status(401).json({ error: 'Not authenticated' });
+    if (!req.user) return res.status(401).json({ error: 'Not authenticated' });
     try {
         const { product_id, quantity = 1 } = req.body;
         const product = await Product.findOne({ id: product_id, is_active: true });
         if (!product) return res.status(404).json({ error: 'Product not found' });
         if (product.stock < quantity) return res.status(400).json({ error: 'Insufficient stock' });
 
-        const existing = await CartItem.findOne({ user_id: req.session.user.id, product_id });
+        const existing = await CartItem.findOne({ user_id: req.user.id, product_id });
         if (existing) {
             existing.quantity += quantity;
             await existing.save();
         } else {
             const maxDoc = await CartItem.findOne().sort({ id: -1 }).select('id').lean();
             const newId = (maxDoc && maxDoc.id ? maxDoc.id : 0) + 1;
-            await CartItem.create({ id: newId, user_id: req.session.user.id, product_id, quantity });
+            await CartItem.create({ id: newId, user_id: req.user.id, product_id, quantity });
         }
         res.json({ success: true });
     } catch (e) {
@@ -60,10 +60,10 @@ router.post('/add', async (req, res) => {
 
 // PUT /api/cart/update/:id - Update cart item quantity
 router.put('/update/:id', async (req, res) => {
-    if (!req.session.user) return res.status(401).json({ error: 'Not authenticated' });
+    if (!req.user) return res.status(401).json({ error: 'Not authenticated' });
     try {
         const { quantity } = req.body;
-        await CartItem.updateOne({ id: parseInt(req.params.id), user_id: req.session.user.id }, { quantity });
+        await CartItem.updateOne({ id: parseInt(req.params.id), user_id: req.user.id }, { quantity });
         res.json({ success: true });
     } catch (e) {
         console.error(e);
@@ -73,9 +73,9 @@ router.put('/update/:id', async (req, res) => {
 
 // DELETE /api/cart/remove/:id - Remove item from cart
 router.delete('/remove/:id', async (req, res) => {
-    if (!req.session.user) return res.status(401).json({ error: 'Not authenticated' });
+    if (!req.user) return res.status(401).json({ error: 'Not authenticated' });
     try {
-        await CartItem.deleteOne({ id: parseInt(req.params.id), user_id: req.session.user.id });
+        await CartItem.deleteOne({ id: parseInt(req.params.id), user_id: req.user.id });
         res.json({ success: true });
     } catch (e) {
         console.error(e);
@@ -85,10 +85,10 @@ router.delete('/remove/:id', async (req, res) => {
 
 // POST /api/cart/checkout - Checkout and create order
 router.post('/checkout', async (req, res) => {
-    if (!req.session.user) return res.status(401).json({ error: 'Not authenticated' });
+    if (!req.user) return res.status(401).json({ error: 'Not authenticated' });
     try {
         const { delivery_address, phone, payment_method, notes, coupon_code } = req.body;
-        const items = await CartItem.find({ user_id: req.session.user.id });
+        const items = await CartItem.find({ user_id: req.user.id });
         if (items.length === 0) return res.status(400).json({ error: 'Cart is empty' });
 
         const productIds = items.map(i => i.product_id);
@@ -117,7 +117,7 @@ router.post('/checkout', async (req, res) => {
                 return res.status(400).json({ error: `Minimum order amount is Rs. ${coupon.min_order_amount}` });
             }
             // Check if user has this coupon assigned and claimed
-            const assignment = await CouponAssignment.findOne({ coupon_id: coupon.id, user_id: req.session.user.id, status: { $in: ['claimed', 'used'] } });
+            const assignment = await CouponAssignment.findOne({ coupon_id: coupon.id, user_id: req.user.id, status: { $in: ['claimed', 'used'] } });
             if (!assignment) {
                 return res.status(400).json({ error: 'This coupon is not assigned to you. Check your Coupons page.' });
             }
@@ -133,7 +133,7 @@ router.post('/checkout', async (req, res) => {
         const newOrderId = (maxOrder && maxOrder.id ? maxOrder.id : 0) + 1;
         const order = await Order.create({
             id: newOrderId,
-            user_id: req.session.user.id,
+            user_id: req.user.id,
             total_amount: finalTotal,
             discount_amount: discountAmount,
             coupon_code: usedCode,
@@ -170,13 +170,13 @@ router.post('/checkout', async (req, res) => {
 
         if (couponId) {
             await Coupon.updateOne({ id: couponId }, { $inc: { used_count: 1 } });
-            await CouponAssignment.updateOne({ coupon_id: couponId, user_id: req.session.user.id, status: 'claimed' }, {
+            await CouponAssignment.updateOne({ coupon_id: couponId, user_id: req.user.id, status: 'claimed' }, {
                 status: 'used',
                 used_at: new Date()
             });
         }
 
-        await CartItem.deleteMany({ user_id: req.session.user.id });
+        await CartItem.deleteMany({ user_id: req.user.id });
         res.json({ success: true, order_id: order.id, total: finalTotal, discount: discountAmount });
     } catch (e) {
         console.error(e);

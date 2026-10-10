@@ -5,7 +5,7 @@ const router = express.Router();
 
 // GET /api/contact - List messages (admin)
 router.get('/', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -45,7 +45,7 @@ router.post('/', async (req, res) => {
 
 // PUT /api/contact/:id/read - Mark as read (admin)
 router.put('/:id/read', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -59,7 +59,7 @@ router.put('/:id/read', async (req, res) => {
 
 // DELETE /api/contact/:id - Delete message (admin)
 router.delete('/:id', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {

@@ -5,7 +5,7 @@ const router = express.Router();
 
 // GET /api/stock - Get stock levels (admin)
 router.get('/', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 
 // POST /api/stock/update - Update stock (admin)
 router.post('/update', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -52,7 +52,7 @@ router.post('/update', async (req, res) => {
 
 // GET /api/stock/logs - Get stock logs (admin)
 router.get('/logs', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -72,7 +72,7 @@ router.get('/logs', async (req, res) => {
 
 // GET /api/stock/report - Stock report (admin)
 router.get('/report', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {

@@ -22,7 +22,7 @@ const upload = multer({
 
 // POST /api/upload - Upload image to Cloudinary
 router.post('/', (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
 

@@ -5,7 +5,7 @@ const router = express.Router();
 
 // GET /api/users - List users (admin)
 router.get('/', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 
 // GET /api/users/:id - Get user details (admin)
 router.get('/:id', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -44,7 +44,7 @@ router.get('/:id', async (req, res) => {
 
 // PUT /api/users/:id - Update user (admin)
 router.put('/:id', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -64,11 +64,11 @@ router.put('/:id', async (req, res) => {
 
 // DELETE /api/users/:id - Delete user (admin)
 router.delete('/:id', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
-        if (parseInt(req.params.id) === req.session.user.id) {
+        if (parseInt(req.params.id) === req.user.id) {
             return res.status(400).json({ error: 'Cannot delete yourself' });
         }
         await User.deleteOne({ id: parseInt(req.params.id) });

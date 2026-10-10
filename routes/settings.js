@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 
 // PUT /api/settings - Update settings (admin)
 router.put('/', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {

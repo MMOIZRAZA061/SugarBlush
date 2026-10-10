@@ -5,7 +5,7 @@ const router = express.Router();
 
 // GET /api/reports/dashboard - Dashboard stats (admin)
 router.get('/dashboard', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -71,7 +71,7 @@ router.get('/dashboard', async (req, res) => {
 
 // GET /api/reports/analytics - Analytics data (admin)
 router.get('/analytics', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -124,7 +124,7 @@ router.get('/analytics', async (req, res) => {
 
 // GET /api/reports/top-search - Top search terms (admin)
 router.get('/top-search', (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     const topSearches = [

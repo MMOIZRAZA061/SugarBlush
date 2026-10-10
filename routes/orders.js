@@ -5,7 +5,7 @@ const router = express.Router();
 
 // GET /api/orders - List orders (admin)
 router.get('/', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -37,9 +37,9 @@ router.get('/', async (req, res) => {
 
 // GET /api/orders/my - My orders (customer)
 router.get('/my', async (req, res) => {
-    if (!req.session.user) return res.status(401).json({ error: 'Not authenticated' });
+    if (!req.user) return res.status(401).json({ error: 'Not authenticated' });
     try {
-        const orders = await Order.find({ user_id: req.session.user.id }).sort({ created_at: -1 });
+        const orders = await Order.find({ user_id: req.user.id }).sort({ created_at: -1 });
         res.json({ orders: toPlainArray(orders) });
     } catch (e) {
         console.error(e);
@@ -49,11 +49,11 @@ router.get('/my', async (req, res) => {
 
 // GET /api/orders/:id - Get order details
 router.get('/:id', async (req, res) => {
-    if (!req.session.user) return res.status(401).json({ error: 'Not authenticated' });
+    if (!req.user) return res.status(401).json({ error: 'Not authenticated' });
     try {
         const order = await Order.findOne({ id: parseInt(req.params.id) });
         if (!order) return res.status(404).json({ error: 'Order not found' });
-        if (order.user_id !== req.session.user.id && req.session.user.role !== 'admin') {
+        if (order.user_id !== req.user.id && req.user.role !== 'admin') {
             return res.status(403).json({ error: 'Access denied' });
         }
         const user = await User.findOne({ id: order.user_id }).select('name email').lean();
@@ -82,7 +82,7 @@ router.get('/:id', async (req, res) => {
 
 // PUT /api/orders/:id/status - Update order status (admin)
 router.put('/:id/status', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {
@@ -97,7 +97,7 @@ router.put('/:id/status', async (req, res) => {
 
 // DELETE /api/orders/:id - Delete order (admin)
 router.delete('/:id', async (req, res) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Admin access required' });
     }
     try {

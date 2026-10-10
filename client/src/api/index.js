@@ -9,10 +9,12 @@ export function imageUrl(image) {
 
 async function request(endpoint, options = {}) {
     const url = `${BASE_URL}${endpoint}`
+    const token = localStorage.getItem('token')
     const config = {
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
             ...options.headers
         },
         ...options
@@ -134,9 +136,11 @@ export const API = {
             const formData = new FormData()
             formData.append('image', file)
             formData.append('folder', folder)
+            const token = localStorage.getItem('token')
             return fetch(`${BASE_URL}/upload`, {
                 method: 'POST',
                 credentials: 'same-origin',
+                headers: token ? { Authorization: `Bearer ${token}` } : {},
                 body: formData
             }).then(res => res.json()).then(data => {
                 if (!res.ok) throw new Error(data.error || 'Upload failed')
