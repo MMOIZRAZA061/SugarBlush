@@ -1,0 +1,20 @@
+{
+    "name": "sugar-blush-bakery",
+    "version": "1.0.0",
+    "description": "Sugar Blush Bakery - MERN Stack with SQLite",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "node --watch server.js",
+        "seed": "node db/seed.js",
+        "migrate": "node scripts/migrate-sqlite-to-mongo.js"
+    },
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "cookie-parser": "^1.4.6",
+        "dotenv": "^18.0.6",
+        "express": "^4.18.2",
+        "express-session": "^1.18.0",
+        "mongoose": "^9.11.1"
+    }
+}

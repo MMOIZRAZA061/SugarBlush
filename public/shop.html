@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shop - Sugar Blush</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/style.css">
+    
+  </head>
+  <body class="bg-light" style="background: #FFF7F3;">
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="/">
+          <div class="d-flex align-items-center">
+            <div class="logo-circle">
+              
+                <img src="static/uploads/WhatsApp_Image_2026-03-14_at_10.33.52_AM.jpeg" alt="Sugar Blush Logo">
+              
+            </div>
+            <div class="brand-text-wrapper ms-2">
+              <span class="brand-title">SUGAR BLUSH</span>
+              <div class="brand-details text-muted">
+                <small>Freshly baked today</small>
+                <small>Custom cakes & treats</small>
+                <small>Quick delivery across city</small>
+              </div>
+            </div>
+          </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="/shop">Shop</a></li>
+            <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+            <li class="nav-item"><a class="nav-link" href="/custom-orders">Custom Orders</a></li>
+            
+            
+            <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true" title="Please login to access cart">Cart (0)</a></li>
+            <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+            <li class="nav-item"><a class="nav-link" href="/signup">Signup</a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    
+
+    <section class="container mt-4">
+      
+        
+      
+
+      
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Shop Products</h2>
+  <form class="d-flex" method="get" action="/shop">
+    <input class="form-control me-2" name="q" type="search" placeholder="Search" value="">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+</div>
+
+<div class="row mb-3">
+  <div class="col-12 d-flex flex-wrap align-items-center gap-2">
+    <div id="category-filters" class="btn-group" role="group">
+      <a class="btn btn-secondary category-filter" href="/shop">All</a>
+      
+        <a class="btn btn-outline-secondary category-filter" href="/shop?category_id=3">Bread</a>
+      
+        <a class="btn btn-outline-secondary category-filter" href="/shop?category_id=1">Cakes</a>
+      
+        <a class="btn btn-outline-secondary category-filter" href="/shop?category_id=2">Cookies</a>
+      
+        <a class="btn btn-outline-secondary category-filter" href="/shop?category_id=4">Frozen Items</a>
+      
+    </div>
+
+  </div>
+</div>
+
+<div class="row">
+  
+  <div class="col-sm-6 col-lg-4 mb-4">
+    <div class="card product-card h-100" onclick="window.location='shop.html';" style="cursor:pointer;">
+      <img src="static/uploads/download_12.jpeg" class="card-img-top" alt="CHCIKEN MAYONNAISE SAMOSA (12 PCS)">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">CHCIKEN MAYONNAISE SAMOSA (12 PCS)</h5>
+        <p class="card-text">A Chicken Mayonnaise Samosa is a golden, crispy pastry with a rich, creamy filli...</p>
+        <p class="card-text"><strong>PKR 400.00</strong>
+          
+        </p>
+        <p class="card-text">
+          <strong>Stock:</strong> 50
+        </p>
+        <div class="mt-auto">
+          <a class="btn btn-sm btn-outline-warning" href="/custom-orders" onclick="event.stopPropagation();">Custom Request</a>
+          <form action="/api/cart/add?product_id=17" method="post" class="d-inline" onclick="event.stopPropagation();">
+            <input type="hidden" name="quantity" value="1">
+            <button class="btn btn-sm btn-success" >Buy Now</button>
+          </form>
+          <form action="/api/cart/add?product_id=17" method="post" class="d-inline" onclick="event.stopPropagation();">
+            <input type="hidden" name="quantity" value="1">
+            <button class="btn btn-sm btn-primary" >Add to Cart</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-sm-6 col-lg-4 mb-4">
+    <div class="card product-card h-100" onclick="window.location='shop.html';" style="cursor:pointer;">
+      <img src="static/uploads/WhatsApp_Image_2026-03-20_at_2.54.36_PM.jpeg" class="card-img-top" alt="CHICKEN KABAB ROLL  (12 PCS)">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">CHICKEN KABAB ROLL  (12 PCS)</h5>
+        <p class="card-text">Ready-to-cook frozen roll, convenient and easy to prepare, perfect for a quick s...</p>
+        <p class="card-text"><strong>PKR 350.00</strong>
+          
+        </p>
+        <p class="card-text">
+          <strong>Stock:</strong> 50
+        </p>
+        <div class="mt-auto">
+          <a class="btn btn-sm btn-outline-warning" href="/custom-orders" onclick="event.stopPropagation();">Custom Request</a>
+          <form action="/api/cart/add?product_id=16" method="post" class="d-inline" onclick="event.stopPropagation();">
+            <input type="hidden" name="quantity" value="1">
+            <button class="btn btn-sm btn-success" >Buy Now</button>
+          </form>
+          <form action="/api/cart/add?product_id=16" method="post" class="d-inline" onclick="event.stopPropagation();">
+            <input type="hidden" name="quantity" value="1">
+            <button class="btn btn-sm btn-primary" >Add to Cart</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-sm-6 col-lg-4 mb-4">
+    <div class="card product-card h-100" onclick="window.location='shop.html';" style="cursor:pointer;">
+      <img src="static/uploads/download.jpeg" class="card-img-top" alt="CHICKEN POPS  1/2 KG">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">CHICKEN POPS  1/2 KG</h5>
+        <p class="card-text">Bite-sized, crispy fried chicken pieces
+
+Made with tender, high-quality chicke...</p>
+        <p class="card-text"><strong>PKR 700.00</strong>
+          
+        </p>
+        <p class="card-text">
+          <strong>Stock:</strong> 50
+        </p>
+        <div class="mt-auto">
+          <a class="btn btn-sm btn-outline-warning" href="/custom-orders" onclick="event.stopPropagation();">Custom Request</a>
+          <form action="/api/cart/add?product_id=15" method="post" class="d-inline" onclick="event.stopPropagation();">
+            <input type="hidden" name="quantity" value="1">
+            <button class="btn btn-sm btn-success" >Buy Now</button>
+          </form>
+          <form action="/api/cart/add?product_id=15" method="post" class="d-inline" onclick="event.stopPropagation();">
+            <input type="hidden" name="quantity" value="1">
+            <button class="btn btn-sm btn-primary" >Add to Cart</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-sm-6 col-lg-4 mb-4">
+    <div class="card product-card h-100" onclick="window.location='shop.html';" style="cursor:pointer;">
+      <img src="static/uploads/download_10.jpeg" class="card-img-top" alt="CHICKEN SHAMI KABAB  (12 PCS)">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">CHICKEN SHAMI KABAB  (12 PCS)</h5>
+        <p class="card-text">Soft and flavorful chicken patties made with minced chicken, lentils, and spices...</p>
+        <p class="card-text"><strong>PKR 400.00</strong>
+          
+        </p>
+        <p class="card-text">
+          <strong>Stock:</strong> 50
+        </p>
+        <div class="mt-auto">
+          <a class="btn btn-sm btn-outline-warning" href="/custom-orders" onclick="event.stopPropagation();">Custom Request</a>
+          <form action="/api/cart/add?product_id=14" method="post" class="d-inline" onclick="event.stopPropagation();">
+            <input type="hidden" name="quantity" value="1">
+            <button class="btn btn-sm btn-success" >Buy Now</button>
+          </form>
+          <form action="/api/cart/add?product_id=14" method="post" class="d-inline" onclick="event.stopPropagation();">
+            <input type="hidden" name="quantity" value="1">
+            <button class="btn btn-sm btn-primary" >Add to Cart</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-sm-6 col-lg-4 mb-4">
+    <div class="card product-card h-100" onclick="window.location='shop.html';" style="cursor:pointer;">
+      <img src="static/uploads/download_9.jpeg" class="card-img-top" alt="CHCIKEN KOFTA 1 KG">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">CHCIKEN KOFTA 1 KG</h5>
+        <p class="card-text">Soft and juicy chicken meatballs made with aromatic spices
+
+Rich, flavorful, a...</p>
+        <p class="card-text"><strong>PKR 1100.00</strong>
+          
+        </p>
+        <p class="card-text">
+          <strong>Stock:</strong> 50
+        </p>
+        <div class="mt-auto">
+          <a class="btn btn-sm btn-outline-warning" href="/custom-orders" onclick="event.stopPropagation();">Custom Request</a>
+          <form action="/api/cart/add?product_id=13" method="post" class="d-inline" onclick="event.stopPropagation();">
+            <input type="hidden" name="quantity" value="1">
+            <button class="btn btn-sm btn-success" >Buy Now</button>
+          </form>
+          <form action="/api/cart/add?product_id=13" method="post" class="d-inline" onclick="event.stopPropagation();">
+            <input type="hidden" name="quantity" value="1">
+            <button class="btn btn-sm btn-primary" >Add to Cart</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-sm-6 col-lg-4 mb-4">
+    <div class="card product-card h-100" onclick="window.location='shop.html';" style="cursor:pointer;">
+      <img src="static/uploads/download_9.jpeg" class="card-img-top" alt="CHCIKEN KOFTA 1/2 KG">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">CHCIKEN KOFTA 1/2 KG</h5>
+        <p class="card-text">Soft and juicy chicken meatballs made with aromatic spices
+
+Rich, flavorful, a...</p>
+        <p class="card-text"><strong>PKR 500.00</strong>
+          
+        </p>
+        <p class="card-text">
+          <strong>Stock:</strong> 50
+        </p>
+        <div class="mt-auto">
+          <a class="btn btn-sm btn-outline-warning" href="/custom-orders" onclick="event.stopPropagation();">Custom Request</a>
+          <form action="/api/cart/add?product_id=12" method="post" class="d-inline" onclick="event.stopPropagation();">
+            <input type="hidden" name="quantity" value="1">
+            <button class="btn btn-sm btn-success" >Buy Now</button>
+          </form>
+          <form action="/api/cart/add?product_id=12" method="post" class="d-inline" onclick="event.stopPropagation();">
+            <input type="hidden" name="quantity" value="1">
+            <button class="btn btn-sm btn-primary" >Add to Cart</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-sm-6 col-lg-4 mb-4">
+    <div class="card product-card h-100" onclick="window.location='shop.html';" style="cursor:pointer;">
+      <img src="static/uploads/download_8.jpeg" class="card-img-top" alt="NUGGETS  1 KG">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">NUGGETS  1 KG</h5>
+        <p class="card-text">Crispy golden-brown bite-sized chicken pieces
+
+Made with tender, high-quality ...</p>
+        <p class="card-text"><strong>PKR 1100.00</strong>
+          
+        </p>
+        <p class="card-text">
+          <strong>Stock:</strong> 80
+        </p>
+        <div class="mt-auto">
+          <a class="btn btn-sm btn-outline-warning" href="/custom-orders" onclick="event.stopPropagation();">Custom Request</a>
+          <form action="/api/cart/add?product_id=11" method="post" class="d-inline" onclick="event.stopPropagation();">
+            <input type="hidden" name="quantity" value="1">
+            <button class="btn btn-sm btn-success" >Buy Now</button>
+          </form>
+          <form action="/api/cart/add?product_id=11" method="post" class="d-inline" onclick="event.stopPropagation();">
+            <input type="hidden" name="quantity" value="1">
+            <button class="btn btn-sm btn-primary" >Add to Cart</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-sm-6 col-lg-4 mb-4">
+    <div class="card product-card h-100" onclick="window.location='shop.html';" style="cursor:pointer;">
+      <img src="static/uploads/download_8.jpeg" class="card-img-top" alt="NUGGETS  1/2 KG">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">NUGGETS  1/2 KG</h5>
+        <p class="card-text">Crispy golden-brown bite-sized chicken pieces
+
+Made with tender, high-quality ...</p>
+        <p class="card-text"><strong>PKR 550.00</strong>
+          
+        </p>
+        <p class="card-text">
+          <strong>Stock:</strong> 40
+        </p>
+        <div class="mt-auto">
+          <a class="btn btn-sm btn-outline-warning" href="/custom-orders" onclick="event.stopPropagation();">Custom Request</a>
+          <form action="/api/cart/add?product_id=10" method="post" class="d-inline" onclick="event.stopPropagation();">
+            <input type="hidden" name="quantity" value="1">
+            <button class="btn btn-sm btn-success" >Buy Now</button>
+          </form>
+          <form action="/api/cart/add?product_id=10" method="post" class="d-inline" onclick="event.stopPropagation();">
+            <input type="hidden" name="quantity" value="1">
+            <button class="btn btn-sm btn-primary" >Add to Cart</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-sm-6 col-lg-4 mb-4">
+    <div class="card product-card h-100" onclick="window.location='shop.html';" style="cursor:pointer;">
+      <img src="static/uploads/download_7.jpeg" class="card-img-top" alt="CHICKEN SEEKH KABAB  1/2 KG">
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">CHICKEN SEEKH KABAB  1/2 KG</h5>
+        <p class="card-text">Juicy minced chicken blended with aromatic spices and herbs
+
+Shaped onto skewe...</p>
+        <p class="card-text"><strong>PKR 500.00</strong>
+          
+        </p>
+        <p class="card-text">
+          <strong>Stock:</strong> 50
+        </p>
+        <div class="mt-auto">
+          <a class="btn btn-sm btn-outline-warning" href="/custom-orders" onclick="event.stopPropagation();">Custom Request</a>
+          <form action="/api/cart/add?product_id=9" method="post" class="d-inline" onclick="event.stopPropagation();">
+            <input type="hidden" name="quantity" value="1">
+            <button class="btn btn-sm btn-success" >Buy Now</button>
+          </form>
+          <form action="/api/cart/add?product_id=9" method="post" class="d-inline" onclick="event.stopPropagation();">
+            <input type="hidden" name="quantity" value="1">
+            <button class="btn btn-sm btn-primary" >Add to Cart</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+
+  <div class="text-center my-4">
+    
+    <a class="btn btn-lg btn-outline-primary" href="/shop?page=2">
+      Show more products (8)
+    </a>
+  </div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const limit = 8; // show first 8 category buttons (excluding All)
+    const categoryButtons = Array.from(document.querySelectorAll('#category-filters .category-filter'));
+    const toggleBtn = document.getElementById('category-show-more');
+    if (!toggleBtn || categoryButtons.length == 0) {
+      if (toggleBtn) toggleBtn.style.display = 'none';
+      return;
+    }
+
+    const allButton = categoryButtons[0];
+    const categoryOnlyButtons = categoryButtons.slice(1);
+    const categoryCount = categoryOnlyButtons.length;
+
+    let expanded = false;
+    const update = () => {
+      if (allButton) allButton.style.display = '';
+      categoryOnlyButtons.forEach((btn, idx) => {
+        if (idx < limit) {
+          btn.style.display = '';
+        } else {
+          if (categoryCount > limit) {
+            btn.style.display = expanded ? '' : 'none';
+          } else {
+            btn.style.display = '';
+          }
+        }
+      });
+      const hiddenCount = Math.max(0, categoryCount - limit);
+      if (categoryCount > limit) {
+        toggleBtn.textContent = expanded ? 'Show less' : `Show more (${hiddenCount})`;
+      } else {
+        toggleBtn.textContent = expanded ? 'Show less' : `Show more (${hiddenCount})`;
+      }
+    };
+
+    toggleBtn.style.display = 'inline-block';
+    update();
+
+    toggleBtn.addEventListener('click', () => {
+      expanded = !expanded;
+      update();
+    });
+  });
+</script>
+
+    </section>
+
+    <footer class="footer mt-4 p-5">
+      <div class="container text-white">
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <h5 class="text-white">Sugar Blush Bakery</h5>
+            <p>Warm, fresh &amp; handcrafted daily pastries delivered with love.</p>
+          </div>
+          <div class="col-md-4 mb-3">
+            <h6>Quick Links</h6>
+            <ul class="list-unstyled">
+              <li><a href="/">Home</a></li>
+              <li><a href="/shop">Shop</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4 mb-3">
+            <h6>Contact</h6>
+            <p>Email: 986sugarblush@gmail.com </p>
+            <p>Phone: +92 315 4331348 </p>
+            <div class="social-icons mt-2">
+              <a href="https://www.facebook.com/share/1CNgGnYDxp/" target="_blank" rel="noreferrer"><i class="bi bi-facebook"></i></a>
+              <a href="https://www.instagram.com/sugarblush_bakers?igsh=MWp0Ymk4eWx1NGV1eg==" target="_blank" rel="noreferrer"><i class="bi bi-instagram"></i></a>
+              <a href="https://youtube.com/@sugarblush_bakers?si=tzmkz5mJLPuXHEif" target="_blank" rel="noreferrer"><i class="bi bi-youtube"></i></a>
+              <a href="https://www.tiktok.com/@sugarblush_vibes?_r=1&amp;_t=ZN-94gFTOBCsPW" target="_blank" rel="noreferrer"><i class="bi bi-tiktok"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-3">&copy; 2026 Sugar Blush Bakery - All rights reserved.</div>
+      </div>
+    </footer>
+
+    <div class="mobile-action-bar d-lg-none d-flex gap-2 justify-content-center">
+      <a href="/shop" class="btn btn-success">Shop</a>
+      <a href="/custom-orders" class="btn btn-info text-white">Custom Order</a>
+      
+      <a href="/login" class="btn btn-warning text-dark disabled" tabindex="-1" aria-disabled="true" title="Please login to access cart">Cart (0)</a>
+      
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/main.js"></script>
+    
+  <script src="static/js/api.js"></script><script src="static/js/pages/shop.js"></script>
+</body>
+</html>

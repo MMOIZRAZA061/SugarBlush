@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profile - Sugar Blush</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/style.css">
+    
+  </head>
+  <body class="bg-light" style="background: #FFF7F3;">
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="/">
+          <div class="d-flex align-items-center">
+            <div class="logo-circle">
+              
+                <img src="static/uploads/WhatsApp_Image_2026-03-14_at_10.33.52_AM.jpeg" alt="Sugar Blush Logo">
+              
+            </div>
+            <div class="brand-text-wrapper ms-2">
+              <span class="brand-title">SUGAR BLUSH</span>
+              <div class="brand-details text-muted">
+                <small>Freshly baked today</small>
+                <small>Custom cakes & treats</small>
+                <small>Quick delivery across city</small>
+              </div>
+            </div>
+          </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="/shop">Shop</a></li>
+            <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+            <li class="nav-item"><a class="nav-link" href="/custom-orders">Custom Orders</a></li>
+            
+            <li class="nav-item"><a class="nav-link" href="admin/dashboard.html">Admin</a></li>
+            
+            
+            <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
+            <li class="nav-item"><a class="nav-link" href="/order-history">Order History</a></li>
+            <li class="nav-item"><a class="nav-link" href="/cart">Cart (0)</a></li>
+            <li class="nav-item"><a class="nav-link" href="/" data-logout-to="index.html">Logout</a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    
+    <button class="btn btn-primary admin-menu-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminSidebar" aria-controls="adminSidebar" style="position: fixed; top: 70px; right: 20px; z-index: 1055; width: 46px; height: 46px; border-radius: 50%;">      
+      <i class="bi bi-list" style="font-size: 1.25rem;"></i>
+    </button>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="adminSidebar" aria-labelledby="adminSidebarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="adminSidebarLabel">Admin Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="list-group list-group-flush">
+          <a href="admin/dashboard.html" class="list-group-item list-group-item-action">Dashboard</a>
+          <a href="admin/reports.html" class="list-group-item list-group-item-action">Reports & Analytics</a>
+          <a href="admin/analytics.html" class="list-group-item list-group-item-action">Analytics</a>
+          <a href="admin/orders.html" class="list-group-item list-group-item-action">Orders</a>
+          <a href="admin/products.html" class="list-group-item list-group-item-action">Products</a>
+          <a href="admin/categories.html" class="list-group-item list-group-item-action">Categories</a>
+          <a href="admin/users.html" class="list-group-item list-group-item-action">Users</a>
+          <a href="admin/banners.html" class="list-group-item list-group-item-action">Banners</a>
+          <a href="admin/announcements.html" class="list-group-item list-group-item-action">Announcements</a>
+          <a href="admin/custom_orders.html" class="list-group-item list-group-item-action">Custom Orders</a>
+          <a href="admin/site-settings.html" class="list-group-item list-group-item-action">Site Settings</a>
+          <a href="admin/contact_messages.html" class="list-group-item list-group-item-action">Contact Messages</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <section class="container mt-4">
+      
+        
+      
+
+      
+<h2>Profile</h2>
+<form method="post" class="row g-3">
+  <div class="col-md-6"><label class="form-label">Name</label><input class="form-control" name="name" value="Admin"></div>
+  <div class="col-md-6"><label class="form-label">Email</label><input class="form-control" value="admin@bakery.com" readonly></div>
+  <div class="col-md-6"><label class="form-label">Password (change)</label><input type="password" name="password" class="form-control"></div>
+  <div class="col-md-6"><label class="form-label">Phone 1</label><input class="form-control" name="phone1" value="None"></div>
+  <div class="col-md-6"><label class="form-label">Phone 2</label><input class="form-control" name="phone2" value="None"></div>
+  <div class="col-md-6"><label class="form-label">Country</label><input class="form-control" name="country" value="None"></div>
+  <div class="col-md-4"><label class="form-label">State</label><input class="form-control" name="state" value="None"></div>
+  <div class="col-md-2"><label class="form-label">Postal Code</label><input class="form-control" name="postal_code" value="None"></div>
+  <div class="col-12"><label class="form-label">City</label><input class="form-control" name="city" value="None"></div>
+  <div class="col-12"><label class="form-label">Address 1</label><input class="form-control" name="address1" value="None"></div>
+  <div class="col-12"><label class="form-label">Address 2</label><input class="form-control" name="address2" value="None"></div>
+  <div class="col-12"><label class="form-label">Address 3</label><input class="form-control" name="address3" value="None"></div>
+  <div class="col-12"><button class="btn btn-success">Update Profile</button></div>
+</form>
+<hr>
+
+<h3>Previous Orders</h3>
+<a class="btn btn-outline-primary mb-2" href="/order-history">View Order History</a>
+
+    </section>
+
+    <footer class="footer mt-4 p-5">
+      <div class="container text-white">
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <h5 class="text-white">Sugar Blush Bakery</h5>
+            <p>Warm, fresh &amp; handcrafted daily pastries delivered with love.</p>
+          </div>
+          <div class="col-md-4 mb-3">
+            <h6>Quick Links</h6>
+            <ul class="list-unstyled">
+              <li><a href="/">Home</a></li>
+              <li><a href="/shop">Shop</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4 mb-3">
+            <h6>Contact</h6>
+            <p>Email: 986sugarblush@gmail.com </p>
+            <p>Phone: +92 315 4331348 </p>
+            <div class="social-icons mt-2">
+              <a href="https://www.facebook.com/share/1CNgGnYDxp/" target="_blank" rel="noreferrer"><i class="bi bi-facebook"></i></a>
+              <a href="https://www.instagram.com/sugarblush_bakers?igsh=MWp0Ymk4eWx1NGV1eg==" target="_blank" rel="noreferrer"><i class="bi bi-instagram"></i></a>
+              <a href="https://youtube.com/@sugarblush_bakers?si=tzmkz5mJLPuXHEif" target="_blank" rel="noreferrer"><i class="bi bi-youtube"></i></a>
+              <a href="https://www.tiktok.com/@sugarblush_vibes?_r=1&amp;_t=ZN-94gFTOBCsPW" target="_blank" rel="noreferrer"><i class="bi bi-tiktok"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-3">&copy; 2026 Sugar Blush Bakery - All rights reserved.</div>
+      </div>
+    </footer>
+
+    <div class="mobile-action-bar d-lg-none d-flex gap-2 justify-content-center">
+      <a href="/shop" class="btn btn-success">Shop</a>
+      <a href="/custom-orders" class="btn btn-info text-white">Custom Order</a>
+      
+      <a href="/cart" class="btn btn-warning text-dark">Cart (0)</a>
+      
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/main.js"></script>
+    <script src="static/js/api.js"></script>
+
+</html>
+
