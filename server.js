@@ -23,7 +23,7 @@ app.use(session({
     }
 }));
 
-// Static files
+// Static files (uploads, images, etc.)
 app.use('/static', express.static(path.join(__dirname, 'public', 'static')));
 
 // API Routes
@@ -42,19 +42,10 @@ app.use('/api/reports', require('./routes/reports'));
 app.use('/api/settings', require('./routes/settings'));
 app.use('/api/coupons', require('./routes/coupons'));
 
-// Serve React build (production)
-const reactBuildPath = path.join(__dirname, 'client', 'dist');
-app.use(express.static(reactBuildPath));
-
-// Fallback: serve React app for all non-API routes
-app.get('*', (req, res) => {
-    res.sendFile(path.join(reactBuildPath, 'index.html'));
-});
-
 // Start server after DB connection
 connectDB().then(() => {
     app.listen(PORT, () => {
-        console.log(`Sugar Blush Bakery running at http://localhost:${PORT}`);
+        console.log(`Sugar Blush Bakery API running at http://localhost:${PORT}`);
         console.log(`Admin login: admin@bakery.com / admin123`);
     });
 }).catch(err => {
