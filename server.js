@@ -2,7 +2,9 @@ const express = require('express');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const path = require('path');
-const { connectDB } = require('./db/connect');
+const fs = require('fs');
+const MongoStore = require('connect-mongo');
+const { connectDB, mongoose } = require('./db/connect');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,10 +13,17 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// Session with MongoDB store (required for Vercel serverless)
 app.use(session({
     secret: process.env.SESSION_SECRET || 'sugar-blush-secret-key-2024',
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGODB_URI,
+        collectionName: 'sessions',
+        ttl: 24 * 60 * 60 // 24 hours
+    }),
     cookie: {
         maxAge: 24 * 60 * 60 * 1000,
         secure: process.env.NODE_ENV === 'production',
@@ -43,14 +52,14 @@ app.use('/api/settings', require('./routes/settings'));
 app.use('/api/coupons', require('./routes/coupons'));
 app.use('/api/upload', require('./routes/upload'));
 
-// Serve React build (production)
+// Serve React build (local development only)
 const reactBuildPath = path.join(__dirname, 'client', 'dist');
-app.use(express.static(reactBuildPath));
-
-// Fallback: serve React app for all non-API routes (SPA routing)
-app.get('*', (req, res) => {
-    res.sendFile(path.join(reactBuildPath, 'index.html'));
-});
+if (fs.existsSync(reactBuildPath)) {
+    app.use(express.static(reactBuildPath));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(reactBuildPath, 'index.html'));
+    });
+}
 
 // Start server after DB connection
 connectDB().then(() => {

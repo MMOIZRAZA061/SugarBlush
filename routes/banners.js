@@ -29,6 +29,7 @@ router.post('/', async (req, res) => {
             subtitle: subtitle || '',
             image: image || '',
             link: link || '',
+            is_active: true,
             sort_order: sort_order || 0
         });
         res.json({ success: true, id: banner.id });
