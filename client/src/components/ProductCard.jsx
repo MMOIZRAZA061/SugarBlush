@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { API, formatCurrency } from '../api/index.js'
+import { API, formatCurrency, imageUrl } from '../api/index.js'
 import { useAuth } from '../context/AuthContext.jsx'
 import { useToast } from './Toast.jsx'
 
@@ -39,7 +39,7 @@ export default function ProductCard({ product, showStock = false, showCustomRequ
 
     return (
         <div className="card product-card mb-4" style={{ cursor: 'pointer' }} onClick={() => navigate(`/product/${product.id}`)}>
-            <img src={`/static/uploads/${product.image}`} className="card-img-top" alt={product.name} style={{ height: '200px', objectFit: 'cover' }} />
+            <img src={imageUrl(product.image)} className="card-img-top" alt={product.name} style={{ height: '200px', objectFit: 'cover' }} />
             <div className="card-body">
                 <h5 className="card-title">{product.name}</h5>
                 {product.description && <p className="card-text text-muted">{product.description.substring(0, 60)}...</p>}

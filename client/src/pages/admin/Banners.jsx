@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { API } from '../../api/index.js'
+import { API, imageUrl } from '../../api/index.js'
 import { useToast } from '../../components/Toast.jsx'
 
 export default function Banners() {
@@ -65,7 +65,7 @@ export default function Banners() {
                 {banners.map(b => (
                     <div key={b.id} className="col-md-6 col-lg-4 mb-3">
                         <div className="card">
-                            <img src={`/static/uploads/${b.image}`} className="card-img-top" alt={b.title} style={{ height: '150px', objectFit: 'cover' }} />
+                            <img src={imageUrl(b.image)} className="card-img-top" alt={b.title} style={{ height: '150px', objectFit: 'cover' }} />
                             <div className="card-body">
                                 <h6>{b.title}</h6>
                                 <p className="text-muted small">{b.subtitle}</p>
@@ -98,8 +98,17 @@ export default function Banners() {
                                         <input className="form-control" value={form.subtitle} onChange={e => setForm({ ...form, subtitle: e.target.value })} />
                                     </div>
                                     <div className="mb-3">
-                                        <label className="form-label">Image (filename in /static/uploads/)</label>
-                                        <input className="form-control" value={form.image} onChange={e => setForm({ ...form, image: e.target.value })} required />
+                                        <label className="form-label">Image</label>
+                                        <input type="file" accept="image/*" className="form-control" onChange={async (e) => {
+                                            const file = e.target.files[0]
+                                            if (!file) return
+                                            try {
+                                                const res = await API.upload.image(file, 'sugar-blush/banners')
+                                                setForm({ ...form, image: res.url })
+                                                showToast('Image uploaded!', 'success')
+                                            } catch (err) { showToast(err.message, 'danger') }
+                                        }} />
+                                        {form.image && <img src={imageUrl(form.image)} className="img-thumbnail mt-2" style={{ maxHeight: '100px' }} alt="Preview" />}
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Link</label>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { API, formatCurrency } from '../../api/index.js'
+import { API, formatCurrency, imageUrl } from '../../api/index.js'
 import { useToast } from '../../components/Toast.jsx'
 
 export default function Products() {
@@ -138,8 +138,17 @@ export default function Products() {
                                         <textarea className="form-control" rows={3} value={form.description} onChange={e => setForm({ ...form, description: e.target.value })}></textarea>
                                     </div>
                                     <div className="col-md-6">
-                                        <label className="form-label">Image (filename in /static/uploads/)</label>
-                                        <input className="form-control" value={form.image} onChange={e => setForm({ ...form, image: e.target.value })} />
+                                        <label className="form-label">Image</label>
+                                        <input type="file" accept="image/*" className="form-control" onChange={async (e) => {
+                                            const file = e.target.files[0]
+                                            if (!file) return
+                                            try {
+                                                const res = await API.upload.image(file, 'sugar-blush/products')
+                                                setForm({ ...form, image: res.url })
+                                                showToast('Image uploaded!', 'success')
+                                            } catch (err) { showToast(err.message, 'danger') }
+                                        }} />
+                                        {form.image && <img src={imageUrl(form.image)} className="img-thumbnail mt-2" style={{ maxHeight: '100px' }} alt="Preview" />}
                                     </div>
                                     <div className="col-md-3">
                                         <div className="form-check mt-4">

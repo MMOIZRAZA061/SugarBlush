@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { API, formatCurrency } from '../../api/index.js'
+import { API, formatCurrency, imageUrl } from '../../api/index.js'
 import { useAuth } from '../../context/AuthContext.jsx'
 import { useToast } from '../../components/Toast.jsx'
 
@@ -103,7 +103,7 @@ export default function Cart() {
                             <div key={item.id} className="col-md-6 col-lg-4 mb-3">
                                 <div className="card cart-item-card p-3">
                                     <div className="d-flex gap-3">
-                                        <img src={`/static/uploads/${item.image}`} className="cart-item-img rounded" alt={item.name} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
+                                        <img src={imageUrl(item.image)} className="cart-item-img rounded" alt={item.name} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
                                         <div className="flex-fill">
                                             <h6>{item.name}</h6>
                                             <p className="mb-1">{formatCurrency(item.price)}</p>

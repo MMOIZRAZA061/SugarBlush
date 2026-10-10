@@ -41,6 +41,7 @@ app.use('/api/stock', require('./routes/stock'));
 app.use('/api/reports', require('./routes/reports'));
 app.use('/api/settings', require('./routes/settings'));
 app.use('/api/coupons', require('./routes/coupons'));
+app.use('/api/upload', require('./routes/upload'));
 
 // Start server after DB connection
 connectDB().then(() => {

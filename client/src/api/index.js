@@ -1,5 +1,12 @@
 const BASE_URL = '/api'
 
+// Helper: resolve image URL (supports both Cloudinary URLs and legacy local filenames)
+export function imageUrl(image) {
+    if (!image) return ''
+    if (image.startsWith('http')) return image
+    return `/static/uploads/${image}`
+}
+
 async function request(endpoint, options = {}) {
     const url = `${BASE_URL}${endpoint}`
     const config = {
@@ -121,6 +128,21 @@ export const API = {
     settings: {
         get: () => request('/settings'),
         update: (data) => request('/settings', { method: 'PUT', body: JSON.stringify(data) })
+    },
+    upload: {
+        image: (file, folder = 'sugar-blush') => {
+            const formData = new FormData()
+            formData.append('image', file)
+            formData.append('folder', folder)
+            return fetch(`${BASE_URL}/upload`, {
+                method: 'POST',
+                credentials: 'same-origin',
+                body: formData
+            }).then(res => res.json()).then(data => {
+                if (!res.ok) throw new Error(data.error || 'Upload failed')
+                return data
+            })
+        }
     }
 }
 

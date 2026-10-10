@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { API, formatCurrency } from '../../api/index.js'
+import { API, formatCurrency, imageUrl } from '../../api/index.js'
 import { useAuth } from '../../context/AuthContext.jsx'
 import { useToast } from '../../components/Toast.jsx'
 
@@ -109,7 +109,7 @@ export default function ProductDetail() {
             <div className="row">
                 <div className="col-md-6 mb-4">
                     <div className="card">
-                        <img src={`/static/uploads/${product.image}`} className="card-img-top" alt={product.name} style={{ height: '400px', objectFit: 'cover' }} />
+                        <img src={imageUrl(product.image)} className="card-img-top" alt={product.name} style={{ height: '400px', objectFit: 'cover' }} />
                     </div>
                 </div>
                 <div className="col-md-6">

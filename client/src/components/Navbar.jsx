@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
+import { imageUrl } from '../api/index.js'
 import { useToast } from './Toast.jsx'
 
 export default function Navbar() {
@@ -26,7 +27,7 @@ export default function Navbar() {
                 <Link className="navbar-brand d-flex align-items-center" to="/">
                     <div className="d-flex align-items-center">
                         <div className="logo-circle">
-                            <img src="/static/uploads/WhatsApp_Image_2026-03-14_at_10.33.52_AM.jpeg" alt="Sugar Blush Logo" />
+                            <img src={imageUrl('WhatsApp_Image_2026-03-14_at_10.33.52_AM.jpeg')} alt="Sugar Blush Logo" />
                         </div>
                         <div className="brand-text-wrapper ms-2">
                             <span className="brand-title">SUGAR BLUSH</span>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { API } from '../../api/index.js'
+import { API, imageUrl } from '../../api/index.js'
 import ProductCard from '../../components/ProductCard.jsx'
 
 export default function Home() {
@@ -49,7 +49,7 @@ export default function Home() {
                         {banners.map((b, i) => (
                             <div key={b.id} className={`carousel-item ${i === activeSlide ? 'active' : ''}`}>
                                 <Link to="/shop" className="d-block">
-                                    <img src={`/static/uploads/${b.image}`} className="d-block w-100 hero-banner" alt={b.title} />
+                                    <img src={imageUrl(b.image)} className="d-block w-100 hero-banner" alt={b.title} />
                                 </Link>
                                 <div className="carousel-caption d-none d-md-block text-start">
                                     <h1 className="display-4" style={{ color: '#fff', textShadow: '2px 2px 20px rgba(0,0,0,.45)' }}>{b.title}</h1>
