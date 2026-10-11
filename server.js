@@ -2,7 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const fs = require('fs');
-const { connectDB } = require('./db/connect');
+const { connectDB, mongoose } = require('./db/connect');
 const { attachUser } = require('./middleware/auth');
 
 const app = express();
@@ -43,13 +43,35 @@ if (fs.existsSync(reactBuildPath)) {
     });
 }
 
-// Start server after DB connection
-connectDB().then(() => {
-    app.listen(PORT, () => {
-        console.log(`Sugar Blush Bakery running at http://localhost:${PORT}`);
-        console.log(`Admin login: admin@bakery.com / admin123`);
+// Lazy DB connection for Vercel serverless
+let dbPromise = null;
+function ensureDB() {
+    if (!dbPromise) {
+        dbPromise = connectDB();
+    }
+    return dbPromise;
+}
+
+// Wrap all API routes to ensure DB is connected
+app.use('/api', (req, res, next) => {
+    ensureDB().then(() => next()).catch(err => {
+        console.error('DB connection failed:', err.message);
+        res.status(500).json({ error: 'Database connection failed' });
     });
-}).catch(err => {
-    console.error('Failed to start server:', err);
-    process.exit(1);
 });
+
+// Export for Vercel serverless
+module.exports = app;
+
+// Start server only in local development
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+    connectDB().then(() => {
+        app.listen(PORT, () => {
+            console.log(`Sugar Blush Bakery running at http://localhost:${PORT}`);
+            console.log(`Admin login: admin@bakery.com / admin123`);
+        });
+    }).catch(err => {
+        console.error('Failed to start server:', err);
+        process.exit(1);
+    });
+}

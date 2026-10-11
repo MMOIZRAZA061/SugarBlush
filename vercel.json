@@ -9,7 +9,7 @@
             "src": "client",
             "use": "@vercel/static-build",
             "config": {
-                "dist": "dist"
+                "distDir": "dist"
             }
         }
     ],
@@ -20,11 +20,11 @@
         },
         {
             "src": "/static/(.*)",
-            "dest": "server.js"
+            "dest": "/static/$1"
         },
         {
             "src": "/(.*)",
-            "dest": "client/dist/index.html"
+            "dest": "/index.html"
         }
     ]
 }
