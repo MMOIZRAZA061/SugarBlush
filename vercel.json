@@ -1,35 +1,40 @@
 {
-    "version": 2,
-    "builds": [
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "services": {
+        "api": {
+            "root": ".",
+            "framework": "express",
+            "buildCommand": "npm run build",
+            "devCommand": "node --watch server.js"
+        },
+        "client": {
+            "root": "client",
+            "framework": "vite",
+            "buildCommand": "npm run build",
+            "devCommand": "vite dev"
+        }
+    },
+    "rewrites": [
         {
-            "src": "server.js",
-            "use": "@vercel/node"
+            "source": "/api/(.*)",
+            "destination": {
+                "service": "api"
+            }
         },
         {
-            "src": "client/package.json",
-            "use": "@vercel/static-build",
-            "config": {
-                "distDir": "dist"
+            "source": "/(.*)",
+            "destination": {
+                "service": "client",
+                "path": "/index.html"
             }
         }
     ],
-    "routes": [
+    "bindings": [
         {
-            "src": "/api/(.*)",
-            "dest": "server.js"
-        },
-        {
-            "src": "/static/(.*)",
-            "dest": "/static/$1"
-        },
-        {
-            "src": "/(.*)",
-            "dest": "/client/dist/index.html"
+            "type": "service",
+            "service": "client",
+            "format": "url",
+            "env": "CLIENT_URL"
         }
-    ],
-    "env": {
-        "MONGODB_URI": "@mongodb_uri",
-        "JWT_SECRET": "@jwt_secret",
-        "CLOUDINARY_URL": "@cloudinary_url"
-    }
+    ]
 }
