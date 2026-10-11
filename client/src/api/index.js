@@ -142,7 +142,8 @@ export const API = {
                 credentials: 'same-origin',
                 headers: token ? { Authorization: `Bearer ${token}` } : {},
                 body: formData
-            }).then(res => res.json()).then(data => {
+            }).then(async (res) => {
+                const data = await res.json()
                 if (!res.ok) throw new Error(data.error || 'Upload failed')
                 return data
             })
