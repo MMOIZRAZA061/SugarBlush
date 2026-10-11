@@ -34,7 +34,7 @@ app.use('/api/settings', require('./routes/settings'));
 app.use('/api/coupons', require('./routes/coupons'));
 app.use('/api/upload', require('./routes/upload'));
 
-// Serve React build (local development only)
+// Serve React build (local development only - Vercel handles client build)
 const reactBuildPath = path.join(__dirname, 'client', 'dist');
 if (fs.existsSync(reactBuildPath)) {
     app.use(express.static(reactBuildPath));
@@ -63,7 +63,7 @@ app.use('/api', (req, res, next) => {
 // Export for Vercel serverless
 module.exports = app;
 
-// Start server only in local development
+// Start server only in local development (not on Vercel)
 if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
     connectDB().then(() => {
         app.listen(PORT, () => {
