@@ -2,19 +2,29 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 
 const MONGODB_URI = process.env.MONGODB_URI;
-if (!MONGODB_URI) {
-    throw new Error('MONGODB_URI is not set. Set it in your environment variables.');
-}
 
 mongoose.set('strictQuery', true);
 
+let cachedConnection = null;
+
 async function connectDB() {
+    if (cachedConnection) {
+        return cachedConnection;
+    }
+
+    if (!MONGODB_URI) {
+        throw new Error('MONGODB_URI is not set. Set it in your environment variables.');
+    }
+
     try {
-        await mongoose.connect(MONGODB_URI, {
-            serverSelectionTimeoutMS: 30000,
-            maxPoolSize: 10
+        const conn = await mongoose.connect(MONGODB_URI, {
+            serverSelectionTimeoutMS: 10000,
+            maxPoolSize: 1,
+            bufferCommands: false,
         });
-        console.log('MongoDB connected:', mongoose.connection.host);
+        cachedConnection = conn;
+        console.log('MongoDB connected:', conn.connection.host);
+        return conn;
     } catch (err) {
         console.error('MongoDB connection failed:', err.message);
         throw err;

@@ -53,11 +53,14 @@ function ensureDB() {
 }
 
 // Wrap all API routes to ensure DB is connected
-app.use('/api', (req, res, next) => {
-    ensureDB().then(() => next()).catch(err => {
+app.use('/api', async (req, res, next) => {
+    try {
+        await ensureDB();
+        next();
+    } catch (err) {
         console.error('DB connection failed:', err.message);
         res.status(500).json({ error: 'Database connection failed' });
-    });
+    }
 });
 
 // Export for Vercel serverless
