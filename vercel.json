@@ -28,13 +28,5 @@
                 "path": "/index.html"
             }
         }
-    ],
-    "bindings": [
-        {
-            "type": "service",
-            "service": "client",
-            "format": "url",
-            "env": "CLIENT_URL"
-        }
     ]
 }
