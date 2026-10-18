@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext.jsx'
 import { ToastProvider } from './components/Toast.jsx'
 import Navbar from './components/Navbar.jsx'
@@ -7,6 +7,8 @@ import Footer from './components/Footer.jsx'
 import MobileActionBar from './components/MobileActionBar.jsx'
 import AdminLayout from './components/AdminLayout.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
+import { Helmet } from 'react-helmet'
+import { routes } from './routes'
 
 // Public pages
 import Home from './pages/public/Home.jsx'
@@ -40,11 +42,42 @@ import AdminStockReport from './pages/admin/StockReport.jsx'
 import AdminTopSearch from './pages/admin/TopSearch.jsx'
 import AdminCoupons from './pages/admin/Coupons.jsx'
 
+// Function to get route metadata
+const getRouteMetadata = (pathname) => {
+    // Find matching route
+    const route = routes.find(r =>
+        r.path === pathname ||
+        (r.path.includes(':') && pathname.startsWith(r.path.split(':')[0]))
+    ) || { title: 'Sugar Blush Bakery', description: 'Freshly baked goods and custom cakes' };
+
+    return {
+        title: `${route.title} | Sugar Blush Bakery`,
+        description: route.description || 'Freshly baked goods, custom cakes, and delicious treats made with love.'
+    };
+};
+
 export default function App() {
+    const location = useLocation();
+    const { title, description } = getRouteMetadata(location.pathname);
+
     return (
         <ToastProvider>
             <AuthProvider>
                 <BrowserRouter>
+                    <Helmet>
+                        <title>{title}</title>
+                        <meta name="description" content={description} />
+                        <meta name="keywords" content="bakery, cakes, breads, pastries, custom cakes, desserts, Sugar Blush Bakery, online bakery, fresh baked goods" />
+                        <meta property="og:title" content={title} />
+                        <meta property="og:description" content={description} />
+                        <meta property="og:image" content="https://sugarblushbakery.vercel.app/logo.png" />
+                        <meta property="og:url" content={`https://sugarblushbakery.vercel.app${location.pathname}`} />
+                        <meta property="og:type" content="website" />
+                        <meta name="twitter:card" content="summary_large_image" />
+                        <meta name="twitter:title" content={title} />
+                        <meta name="twitter:description" content={description} />
+                        <meta name="twitter:image" content="https://sugarblushbakery.vercel.app/logo.png" />
+                    </Helmet>
                     <Navbar />
                     <Routes>
                         {/* Public routes */}
