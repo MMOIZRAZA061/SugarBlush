@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 // Base URL of the website (change this to your actual domain)
-const BASE_URL = 'https://sugarblushbakery.vercel.app';
+const BASE_URL = 'https://sugarblush-s2ky.vercel.app';
 
 // Routes array from client/src/routes.js
 const routes = [
